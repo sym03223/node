@@ -24,9 +24,11 @@ const home = require("./src/routes/home")// ./는 현재 폴더
 
 //npm install express -s 로 설치
 //npm install ejs -s 로 설치
+//npm install nodemon -g 설치
 //앱 세팅
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
+app.use(express.static(`${__dirname}/src/public`))
 
 app.use("/", home); //미들웨어를 등록하는 메서드.
 
