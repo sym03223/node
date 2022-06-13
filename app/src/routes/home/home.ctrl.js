@@ -1,5 +1,6 @@
 "use strict";
 
+const User = require("../../models/User");
 const output = {
     home : (req,res)=>{
       res.render("home/index");
@@ -7,35 +8,26 @@ const output = {
     login : (req,res)=>{
       res.render("home/login");
   },
+    register : (req,res)=>{
+      res.render("home/register");
+  },
 };
 
-const users = {
-  id : ["a1","b1","c1"],
-  passwd : ["1234","2345","3456"],
-};
+
 
 const process = {
   login : (req,res) => {
-    const id = req.body.id,
-      passwd = req.body.passwd;
-    
-    if(users.id.includes(id)){
-      const idx = users.id.indexOf(id);
-      if(users.passwd[idx] === passwd){
-        return res.json({
-          success : true,
-        })
-      }
-    }
-
-    return res.json({
-      success : false,
-      msg : "로그인에 실패",
-    })
-  }
+    const user = new User(req.body);
+    const response = user.login();
+    return res.json(response);
+  },
 }
 
 module.exports = {
     output,
     process,
 };
+
+
+//========
+//const user = new User(req.body);
